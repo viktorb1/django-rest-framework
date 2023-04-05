@@ -239,7 +239,7 @@ The root of our API is going to be a view that supports listing all the existing
             serializer = SnippetSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
-                return JsonResponse(serializer.data, status=201)
+                return JsonResponse(serializer.validated_data, status=201)
             return JsonResponse(serializer.errors, status=400)
 
 Note that because we want to be able to POST to this view from clients that won't have a CSRF token we need to mark the view as `csrf_exempt`.  This isn't something that you'd normally want to do, and REST framework views actually use more sensible behavior than this, but it'll do for our purposes right now.
